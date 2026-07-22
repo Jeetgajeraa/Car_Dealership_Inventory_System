@@ -177,3 +177,15 @@ service vehicle existence check, controller handler, and admin route.
 - Implemented `updateVehicle` method in `VehicleService` with 404 check
 - Implemented `updateVehicle` controller handler and registered `PUT /api/v1/vehicles/:id` route guarded by `authenticate` & `authorizeRole("ADMIN")`
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 16
+
+### User Prompt
+> test(vehicles): add delete vehicle endpoint tests
+
+Added failing tests for deleting vehicles (unauthenticated request rejection,
+non-admin authorization rejection, 404 for non-existent vehicle, successful deletion).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `deleteVehicle.test.ts` for `DELETE /api/v1/vehicles/:id` endpoint
+- Verified test suite failure (🔴 RED Phase)
