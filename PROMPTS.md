@@ -46,3 +46,28 @@
 
 ### AI Assistance(Gemini 3.6)
 - Implemented login controller
+
+## Prompt 6
+
+### User Prompt
+> test(auth): add JWT authentication middleware tests
+
+Added failing tests for missing token, invalid token,
+expired token, deleted user, and successful authentication.
+
+### AI Assistance(Gemini 3.6)
+- Added unit test suite for JWT authentication middleware (`authenticate`) covering missing token, invalid token, expired token, deleted user, and successful authentication
+- Added unit tests for role authorization middleware (`authorizeRole`)
+
+## Prompt 7
+
+### User Prompt
+> feat(auth): implement JWT authentication middleware
+
+Implemented JWT verification, authenticated request handling,
+and user lookup for protected routes.
+
+### AI Assistance(Gemini 3.6)
+- Implemented JWT token verification and payload decoding in `authenticate` middleware
+- Implemented database user lookup to verify user existence for protected routes
+- Added `authorizeRole` middleware for role-based access control
