@@ -269,3 +269,16 @@ empty list for user with no purchases, purchase history with vehicle details for
 ### AI Assistance(Gemini 3.6)
 - Created test suite `getPurchases.test.ts` for `GET /api/v1/purchases` endpoint
 - Verified test suite failure (🔴 RED Phase)
+
+## Prompt 23
+
+### User Prompt
+> feat(purchases): implement get user purchase history endpoint
+
+Implemented PurchaseRepository, PurchaseService, PurchaseController, and mounted purchase routes under /api/v1/purchases.
+
+### AI Assistance(Gemini 3.6)
+- Created `PurchaseRepository` with `findByUserId` query including vehicle relation
+- Created `PurchaseService` and `getUserPurchases` controller handler
+- Mounted `GET /api/v1/purchases` route guarded by `authenticate` middleware
+- Verified 100% test pass rate (🟢 GREEN Phase)
