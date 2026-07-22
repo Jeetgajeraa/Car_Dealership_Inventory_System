@@ -189,3 +189,17 @@ non-admin authorization rejection, 404 for non-existent vehicle, successful dele
 ### AI Assistance(Gemini 3.6)
 - Created test suite `deleteVehicle.test.ts` for `DELETE /api/v1/vehicles/:id` endpoint
 - Verified test suite failure (🔴 RED Phase)
+
+## Prompt 17
+
+### User Prompt
+> feat(vehicles): implement delete vehicle endpoint
+
+Implemented repository delete method, service vehicle existence check,
+controller handler, and admin route.
+
+### AI Assistance(Gemini 3.6)
+- Added `delete` method in `VehicleRepository`
+- Implemented `deleteVehicle` method in `VehicleService` with 404 check
+- Implemented `deleteVehicle` controller handler and registered `DELETE /api/v1/vehicles/:id` route guarded by `authenticate` & `authorizeRole("ADMIN")`
+- Verified 100% test pass rate (🟢 GREEN Phase)

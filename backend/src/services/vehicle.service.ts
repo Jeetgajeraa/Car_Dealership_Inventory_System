@@ -43,4 +43,14 @@ export class VehicleService {
 
     return this.vehicleRepository.update(id, input);
   }
+
+  async deleteVehicle(id: string) {
+    const existing = await this.vehicleRepository.findById(id);
+
+    if (!existing) {
+      throw new ApiError("Vehicle not found", 404);
+    }
+
+    return this.vehicleRepository.delete(id);
+  }
 }
