@@ -203,3 +203,31 @@ controller handler, and admin route.
 - Implemented `deleteVehicle` method in `VehicleService` with 404 check
 - Implemented `deleteVehicle` controller handler and registered `DELETE /api/v1/vehicles/:id` route guarded by `authenticate` & `authorizeRole("ADMIN")`
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 18
+
+### User Prompt
+> test(inventory): add vehicle purchase and restock endpoint tests
+
+Added failing tests for purchasing vehicles (unauthenticated rejection, 404 non-existent vehicle,
+insufficient stock rejection, successful purchase & stock decrement) and restocking vehicles
+(non-admin rejection, invalid quantity rejection, successful restock & stock increment).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `inventory.test.ts` for `POST /api/v1/vehicles/:id/purchase` & `POST /api/v1/vehicles/:id/restock`
+- Verified test suite failure (🔴 RED Phase)
+
+## Prompt 19
+
+### User Prompt
+> feat(inventory): implement vehicle purchase and restock endpoints
+
+Implemented purchase and restock validation schemas, repository transaction methods,
+service stock checks, controller handlers, and purchase/restock routes.
+
+### AI Assistance(Gemini 3.6)
+- Added `purchaseVehicleSchema` & `restockVehicleSchema` in `vehicle.validator.ts`
+- Added Prisma transaction `purchase` and atomic increment `restock` methods in `VehicleRepository`
+- Added `purchaseVehicle` (with stock validation) and `restockVehicle` methods in `VehicleService`
+- Implemented `purchaseVehicle` & `restockVehicle` controller handlers and mounted `POST /api/v1/vehicles/:id/purchase` and `POST /api/v1/vehicles/:id/restock` routes
+- Verified 100% test pass rate (🟢 GREEN Phase)

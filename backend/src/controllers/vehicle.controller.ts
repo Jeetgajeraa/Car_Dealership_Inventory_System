@@ -3,6 +3,8 @@ import {
   createVehicleSchema,
   updateVehicleSchema,
   searchVehicleSchema,
+  purchaseVehicleSchema,
+  restockVehicleSchema,
 } from "../validators/vehicle.validator";
 import { VehicleService } from "../services/vehicle.service";
 
@@ -100,6 +102,49 @@ export const deleteVehicle = async (
     return res.status(200).json({
       success: true,
       message: "Vehicle deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const purchaseVehicle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id as string;
+    const userId = (req as any).user.id;
+    const { quantity } = purchaseVehicleSchema.parse(req.body);
+
+    const result = await vehicleService.purchaseVehicle(id, userId, quantity);
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicle purchased successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const restockVehicle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id as string;
+    const { quantity } = restockVehicleSchema.parse(req.body);
+
+    const vehicle = await vehicleService.restockVehicle(id, quantity);
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicle restocked successfully",
+      data: vehicle,
     });
   } catch (error) {
     next(error);

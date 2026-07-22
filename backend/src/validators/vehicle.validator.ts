@@ -26,6 +26,16 @@ export const searchVehicleSchema = z.object({
   maxPrice: z.coerce.number().min(0).optional(),
 });
 
+export const purchaseVehicleSchema = z.object({
+  quantity: z.number().int().positive("Quantity must be a positive integer").default(1),
+});
+
+export const restockVehicleSchema = z.object({
+  quantity: z.number().int().positive("Restock quantity must be a positive integer"),
+});
+
 export type CreateVehicleInput = z.infer<typeof createVehicleSchema>;
 export type UpdateVehicleInput = z.infer<typeof updateVehicleSchema>;
 export type SearchVehicleQuery = z.infer<typeof searchVehicleSchema>;
+export type PurchaseVehicleInput = z.infer<typeof purchaseVehicleSchema>;
+export type RestockVehicleInput = z.infer<typeof restockVehicleSchema>;

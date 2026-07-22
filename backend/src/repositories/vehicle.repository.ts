@@ -112,4 +112,31 @@ export class VehicleRepository {
       where: { id },
     });
   }
+
+  async purchase(vehicleId: string, userId: string, quantity: number) {
+    return prisma.$transaction(async (tx) => {
+      const updatedVehicle = await tx.vehicle.update({
+        where: { id: vehicleId },
+        data: { quantity: { decrement: quantity } },
+      });
+
+      const purchase = await tx.purchase.create({
+        data: {
+          userId,
+          vehicleId,
+          quantity,
+          totalPrice: Number(updatedVehicle.price) * quantity,
+        },
+      });
+
+      return { vehicle: updatedVehicle, purchase };
+    });
+  }
+
+  async restock(vehicleId: string, quantity: number) {
+    return prisma.vehicle.update({
+      where: { id: vehicleId },
+      data: { quantity: { increment: quantity } },
+    });
+  }
 }

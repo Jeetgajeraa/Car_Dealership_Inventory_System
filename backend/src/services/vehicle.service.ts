@@ -53,4 +53,28 @@ export class VehicleService {
 
     return this.vehicleRepository.delete(id);
   }
+
+  async purchaseVehicle(vehicleId: string, userId: string, quantity: number) {
+    const existing = await this.vehicleRepository.findById(vehicleId);
+
+    if (!existing) {
+      throw new ApiError("Vehicle not found", 404);
+    }
+
+    if (existing.quantity < quantity) {
+      throw new ApiError("Insufficient stock", 400);
+    }
+
+    return this.vehicleRepository.purchase(vehicleId, userId, quantity);
+  }
+
+  async restockVehicle(vehicleId: string, quantity: number) {
+    const existing = await this.vehicleRepository.findById(vehicleId);
+
+    if (!existing) {
+      throw new ApiError("Vehicle not found", 404);
+    }
+
+    return this.vehicleRepository.restock(vehicleId, quantity);
+  }
 }
