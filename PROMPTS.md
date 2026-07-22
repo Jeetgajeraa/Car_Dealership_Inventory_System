@@ -150,3 +150,25 @@ service method, controller handler, and search route.
 - Implemented `searchVehicles` service method and controller handler
 - Registered `GET /api/v1/vehicles/search` route guarded by `authenticate` middleware
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 14
+
+### User Prompt
+> test(vehicles): add update vehicle endpoint tests
+
+Added failing tests for updating vehicle details (unauthenticated request rejection,
+non-admin authorization rejection, 404 for non-existent vehicle, valid update payload, validation errors).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `updateVehicle.test.ts` for `PUT /api/v1/vehicles/:id` endpoint
+- Verified test suite failure (🔴 RED Phase)
+
+## Prompt 14
+
+### User Prompt
+>there are some testing failure accuring while running npm test look into it.
+
+### AI Assistance(Gemini 3.6)
+-erroe solved (name mismatched)
+
+
