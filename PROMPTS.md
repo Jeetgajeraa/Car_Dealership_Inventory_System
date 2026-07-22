@@ -97,3 +97,15 @@ controller, and route guarded by admin authorization.
 - Implemented `VehicleRepository` and `VehicleService` with duplicate vehicle check
 - Implemented `createVehicle` controller and registered `POST /api/v1/vehicles` route with `authenticate` & `authorizeRole("ADMIN")`
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 10
+
+### User Prompt
+> test(vehicles): add get all vehicles endpoint tests
+
+Added failing tests for retrieving available vehicles (unauthenticated request rejection,
+empty list response, list of all available vehicles for authenticated users).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `getVehicles.test.ts` for `GET /api/v1/vehicles` endpoint
+- Verified test suite failure (🔴 RED Phase)
