@@ -9,3 +9,11 @@
 - Created initial Prisma schema
 - Configured environment variables
 - Set up Express with middleware and a health endpoint
+
+## Prompt 2
+
+### User Prompt
+> According to user routes make an tests for user registration
+
+### AI Assistance(GPT-5.5)
+- Added test cases for user registration
