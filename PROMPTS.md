@@ -257,3 +257,15 @@ controller handler, and mounted route.
 - Added `getVehicleById` controller handler in `vehicle.controller.ts`
 - Registered `GET /api/v1/vehicles/:id` route guarded by `authenticate` middleware
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 22
+
+### User Prompt
+> test(purchases): add get user purchase history endpoint tests
+
+Added failing tests for user purchase history (unauthenticated request rejection,
+empty list for user with no purchases, purchase history with vehicle details for authenticated user).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `getPurchases.test.ts` for `GET /api/v1/purchases` endpoint
+- Verified test suite failure (🔴 RED Phase)
