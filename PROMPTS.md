@@ -231,3 +231,15 @@ service stock checks, controller handlers, and purchase/restock routes.
 - Added `purchaseVehicle` (with stock validation) and `restockVehicle` methods in `VehicleService`
 - Implemented `purchaseVehicle` & `restockVehicle` controller handlers and mounted `POST /api/v1/vehicles/:id/purchase` and `POST /api/v1/vehicles/:id/restock` routes
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 20
+
+### User Prompt
+> test(vehicles): add get vehicle details by id endpoint tests
+
+Added failing tests for retrieving vehicle by ID (unauthenticated request rejection,
+404 for non-existent vehicle ID, successful retrieval for authenticated user).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `getVehicleById.test.ts` for `GET /api/v1/vehicles/:id` endpoint
+- Verified test suite failure (🔴 RED Phase)
