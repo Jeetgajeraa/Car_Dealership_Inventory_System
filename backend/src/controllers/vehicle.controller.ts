@@ -48,6 +48,26 @@ export const getVehicles = async (
   }
 };
 
+export const getVehicleById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id as string;
+
+    const vehicle = await vehicleService.getVehicleById(id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicle details retrieved successfully",
+      data: vehicle,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const searchVehicles = async (
   req: Request,
   res: Response,

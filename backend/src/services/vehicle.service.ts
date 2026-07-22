@@ -30,6 +30,16 @@ export class VehicleService {
     return this.vehicleRepository.findAll();
   }
 
+  async getVehicleById(id: string) {
+    const vehicle = await this.vehicleRepository.findById(id);
+
+    if (!vehicle) {
+      throw new ApiError("Vehicle not found", 404);
+    }
+
+    return vehicle;
+  }
+
   async searchVehicles(query: SearchVehicleQuery) {
     return this.vehicleRepository.search(query);
   }

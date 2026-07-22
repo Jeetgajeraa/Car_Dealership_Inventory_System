@@ -243,3 +243,17 @@ Added failing tests for retrieving vehicle by ID (unauthenticated request reject
 ### AI Assistance(Gemini 3.6)
 - Created test suite `getVehicleById.test.ts` for `GET /api/v1/vehicles/:id` endpoint
 - Verified test suite failure (🔴 RED Phase)
+
+## Prompt 21
+
+### User Prompt
+> feat(vehicles): implement get vehicle details by id endpoint
+
+Implemented service `getVehicleById` method with 404 check,
+controller handler, and mounted route.
+
+### AI Assistance(Gemini 3.6)
+- Added `getVehicleById` method in `VehicleService`
+- Added `getVehicleById` controller handler in `vehicle.controller.ts`
+- Registered `GET /api/v1/vehicles/:id` route guarded by `authenticate` middleware
+- Verified 100% test pass rate (🟢 GREEN Phase)
