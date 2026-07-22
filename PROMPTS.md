@@ -71,3 +71,15 @@ and user lookup for protected routes.
 - Implemented JWT token verification and payload decoding in `authenticate` middleware
 - Implemented database user lookup to verify user existence for protected routes
 - Added `authorizeRole` middleware for role-based access control
+
+## Prompt 8
+
+### User Prompt
+> test(vehicles): add vehicle creation endpoint tests
+
+Added failing tests for creating vehicles (unauthenticated request rejection,
+role authorization check, valid creation payload, validation errors, duplicate vehicle rejection).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `createVehicle.test.ts` for `POST /api/v1/vehicles` endpoint
+- Verified test suite failure (🔴 RED Phase)
