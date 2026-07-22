@@ -17,6 +17,14 @@ export class VehicleRepository {
     });
   }
 
+  async findAll() {
+    return prisma.vehicle.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
   async create(data: {
     make: string;
     model: string;

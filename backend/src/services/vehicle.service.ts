@@ -21,4 +21,8 @@ export class VehicleService {
 
     return this.vehicleRepository.create(input);
   }
+
+  async getVehicles() {
+    return this.vehicleRepository.findAll();
+  }
 }

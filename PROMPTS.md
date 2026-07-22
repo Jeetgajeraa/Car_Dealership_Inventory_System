@@ -109,3 +109,17 @@ empty list response, list of all available vehicles for authenticated users).
 ### AI Assistance(Gemini 3.6)
 - Created test suite `getVehicles.test.ts` for `GET /api/v1/vehicles` endpoint
 - Verified test suite failure (🔴 RED Phase)
+
+## Prompt 11
+
+### User Prompt
+> feat(vehicles): implement get all vehicles endpoint
+
+Implemented repository findAll query, service, controller, and route
+handler for retrieving available vehicles.
+
+### AI Assistance(Gemini 3.6)
+- Added `findAll` query in `VehicleRepository` ordered by creation date
+- Added `getVehicles` service method and controller handler
+- Registered `GET /api/v1/vehicles` route guarded by `authenticate` middleware
+- Verified 100% test pass rate (🟢 GREEN Phase)

@@ -23,3 +23,21 @@ export const createVehicle = async (
     next(error);
   }
 };
+
+export const getVehicles = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const vehicles = await vehicleService.getVehicles();
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicles retrieved successfully",
+      data: vehicles,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
