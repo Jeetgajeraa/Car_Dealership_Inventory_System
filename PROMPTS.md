@@ -123,3 +123,15 @@ handler for retrieving available vehicles.
 - Added `getVehicles` service method and controller handler
 - Registered `GET /api/v1/vehicles` route guarded by `authenticate` middleware
 - Verified 100% test pass rate (🟢 GREEN Phase)
+
+## Prompt 12
+
+### User Prompt
+> test(vehicles): add vehicle search and filter endpoint tests
+
+Added failing tests for searching and filtering vehicles by make, model,
+categoryId, and price range (minPrice and maxPrice).
+
+### AI Assistance(Gemini 3.6)
+- Created test suite `searchVehicles.test.ts` for `GET /api/v1/vehicles/search` endpoint
+- Verified test suite failure (🔴 RED Phase)
