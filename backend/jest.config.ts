@@ -8,6 +8,7 @@ const config: Config = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: "coverage",
+  setupFiles: ["dotenv/config"],
 };
 
 export default config;

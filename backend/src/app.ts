@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import routes from "./routes";
+import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
 
@@ -19,5 +20,7 @@ app.get("/health", (_, res) => {
 });
 
 app.use("/api/v1", routes);
+
+app.use(errorHandler);
 
 export default app;

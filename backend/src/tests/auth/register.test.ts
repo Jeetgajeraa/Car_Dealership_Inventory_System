@@ -1,7 +1,29 @@
 import request from "supertest";
 import app from "../../app";
+import prisma from "../../prisma";
 
 describe("POST /api/v1/auth/register", () => {
+  const testEmails = ["jeet@test.com", "duplicate@test.com"];
+
+  const cleanDatabase = async () => {
+    await prisma.user.deleteMany({
+      where: {
+        email: {
+          in: testEmails,
+        },
+      },
+    });
+  };
+
+  beforeEach(async () => {
+    await cleanDatabase();
+  });
+
+  afterAll(async () => {
+    await cleanDatabase();
+    await prisma.$disconnect();
+  });
+
   it("should register a new user", async () => {
     const res = await request(app)
       .post("/api/v1/auth/register")

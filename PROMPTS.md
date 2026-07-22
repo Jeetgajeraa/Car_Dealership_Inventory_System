@@ -17,3 +17,32 @@
 
 ### AI Assistance(GPT-5.5)
 - Added test cases for user registration
+
+## Prompt 3
+
+### User Prompt
+> Implement the registration feature to satisfy the failing TDD tests.
+
+### AI Assistance(Gemini 3.6)
+- Created Zod validation schema
+- Implemented user repository
+- Implemented authentication service
+- Added password hashing with bcrypt
+- Implemented registration controller
+- Updated error handling for validation errors
+
+## Prompt 4
+
+### User Prompt
+> According to user routes make an tests for user login
+
+### AI Assistance(Gemini 3.6)
+- Added test cases for user login
+
+## Prompt 5
+
+### User Prompt
+> Implement the login feature to satisfy the failing TDD tests.
+
+### AI Assistance(Gemini 3.6)
+- Implemented login controller
