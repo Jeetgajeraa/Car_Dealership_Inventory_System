@@ -1,5 +1,9 @@
 import { VehicleRepository } from "../repositories/vehicle.repository";
-import { CreateVehicleInput, SearchVehicleQuery } from "../validators/vehicle.validator";
+import {
+  CreateVehicleInput,
+  UpdateVehicleInput,
+  SearchVehicleQuery,
+} from "../validators/vehicle.validator";
 import { ApiError } from "../utils/ApiError";
 
 export class VehicleService {
@@ -28,5 +32,15 @@ export class VehicleService {
 
   async searchVehicles(query: SearchVehicleQuery) {
     return this.vehicleRepository.search(query);
+  }
+
+  async updateVehicle(id: string, input: UpdateVehicleInput) {
+    const existing = await this.vehicleRepository.findById(id);
+
+    if (!existing) {
+      throw new ApiError("Vehicle not found", 404);
+    }
+
+    return this.vehicleRepository.update(id, input);
   }
 }

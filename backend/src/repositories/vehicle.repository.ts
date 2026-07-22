@@ -1,6 +1,12 @@
 import prisma from "../prisma";
 
 export class VehicleRepository {
+  async findById(id: string) {
+    return prisma.vehicle.findUnique({
+      where: { id },
+    });
+  }
+
   async findByMakeModelCategory(
     make: string,
     model: string,
@@ -81,6 +87,23 @@ export class VehicleRepository {
         quantity: data.quantity,
         description: data.description,
       },
+    });
+  }
+
+  async update(
+    id: string,
+    data: {
+      make?: string;
+      model?: string;
+      categoryId?: string;
+      price?: number;
+      quantity?: number;
+      description?: string;
+    }
+  ) {
+    return prisma.vehicle.update({
+      where: { id },
+      data,
     });
   }
 }

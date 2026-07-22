@@ -163,12 +163,17 @@ non-admin authorization rejection, 404 for non-existent vehicle, valid update pa
 - Created test suite `updateVehicle.test.ts` for `PUT /api/v1/vehicles/:id` endpoint
 - Verified test suite failure (🔴 RED Phase)
 
-## Prompt 14
+## Prompt 15
 
 ### User Prompt
->there are some testing failure accuring while running npm test look into it.
+> feat(vehicles): implement update vehicle details endpoint
+
+Implemented update vehicle validation schema, repository update method,
+service vehicle existence check, controller handler, and admin route.
 
 ### AI Assistance(Gemini 3.6)
--erroe solved (name mismatched)
-
-
+- Created `updateVehicleSchema` in `vehicle.validator.ts`
+- Added `findById` and `update` methods in `VehicleRepository`
+- Implemented `updateVehicle` method in `VehicleService` with 404 check
+- Implemented `updateVehicle` controller handler and registered `PUT /api/v1/vehicles/:id` route guarded by `authenticate` & `authorizeRole("ADMIN")`
+- Verified 100% test pass rate (🟢 GREEN Phase)

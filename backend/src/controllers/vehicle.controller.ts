@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { createVehicleSchema, searchVehicleSchema } from "../validators/vehicle.validator";
+import {
+  createVehicleSchema,
+  updateVehicleSchema,
+  searchVehicleSchema,
+} from "../validators/vehicle.validator";
 import { VehicleService } from "../services/vehicle.service";
 
 const vehicleService = new VehicleService();
@@ -56,6 +60,27 @@ export const searchVehicles = async (
       success: true,
       message: "Vehicles search results",
       data: vehicles,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateVehicle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id as string;
+    const data = updateVehicleSchema.parse(req.body);
+
+    const vehicle = await vehicleService.updateVehicle(id, data);
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicle updated successfully",
+      data: vehicle,
     });
   } catch (error) {
     next(error);
