@@ -135,3 +135,18 @@ categoryId, and price range (minPrice and maxPrice).
 ### AI Assistance(Gemini 3.6)
 - Created test suite `searchVehicles.test.ts` for `GET /api/v1/vehicles/search` endpoint
 - Verified test suite failure (🔴 RED Phase)
+
+## Prompt 13
+
+### User Prompt
+> feat(vehicles): implement vehicle search and filter endpoint
+
+Implemented search validation schema, repository search query,
+service method, controller handler, and search route.
+
+### AI Assistance(Gemini 3.6)
+- Created `searchVehicleSchema` in `vehicle.validator.ts`
+- Implemented `search` query in `VehicleRepository` handling case-insensitive filtering for make, model, categoryId, and price range (`minPrice`, `maxPrice`)
+- Implemented `searchVehicles` service method and controller handler
+- Registered `GET /api/v1/vehicles/search` route guarded by `authenticate` middleware
+- Verified 100% test pass rate (🟢 GREEN Phase)

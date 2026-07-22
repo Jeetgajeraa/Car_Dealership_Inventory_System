@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createVehicleSchema } from "../validators/vehicle.validator";
+import { createVehicleSchema, searchVehicleSchema } from "../validators/vehicle.validator";
 import { VehicleService } from "../services/vehicle.service";
 
 const vehicleService = new VehicleService();
@@ -35,6 +35,26 @@ export const getVehicles = async (
     return res.status(200).json({
       success: true,
       message: "Vehicles retrieved successfully",
+      data: vehicles,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const searchVehicles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const query = searchVehicleSchema.parse(req.query);
+
+    const vehicles = await vehicleService.searchVehicles(query);
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicles search results",
       data: vehicles,
     });
   } catch (error) {

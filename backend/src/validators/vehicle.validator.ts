@@ -9,4 +9,13 @@ export const createVehicleSchema = z.object({
   description: z.string().trim().optional(),
 });
 
+export const searchVehicleSchema = z.object({
+  make: z.string().trim().optional(),
+  model: z.string().trim().optional(),
+  categoryId: z.string().trim().optional(),
+  minPrice: z.coerce.number().min(0).optional(),
+  maxPrice: z.coerce.number().min(0).optional(),
+});
+
 export type CreateVehicleInput = z.infer<typeof createVehicleSchema>;
+export type SearchVehicleQuery = z.infer<typeof searchVehicleSchema>;

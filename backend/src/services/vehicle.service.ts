@@ -1,5 +1,5 @@
 import { VehicleRepository } from "../repositories/vehicle.repository";
-import { CreateVehicleInput } from "../validators/vehicle.validator";
+import { CreateVehicleInput, SearchVehicleQuery } from "../validators/vehicle.validator";
 import { ApiError } from "../utils/ApiError";
 
 export class VehicleService {
@@ -24,5 +24,9 @@ export class VehicleService {
 
   async getVehicles() {
     return this.vehicleRepository.findAll();
+  }
+
+  async searchVehicles(query: SearchVehicleQuery) {
+    return this.vehicleRepository.search(query);
   }
 }
