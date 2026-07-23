@@ -150,4 +150,35 @@ export class VehicleRepository {
       data: { quantity: { increment: quantity } },
     });
   }
+
+  async getStats() {
+    const totalVehicles = await prisma.vehicle.count();
+    const stockAgg = await prisma.vehicle.aggregate({
+      _sum: { quantity: true },
+    });
+    const outOfStockCount = await prisma.vehicle.count({
+      where: { quantity: 0 },
+    });
+    const purchaseAgg = await prisma.purchase.aggregate({
+      _count: { id: true },
+      _sum: { totalPrice: true },
+    });
+
+    const allVehicles = await prisma.vehicle.findMany({
+      select: { price: true, quantity: true },
+    });
+    const totalInventoryValue = allVehicles.reduce(
+      (acc, v) => acc + Number(v.price) * v.quantity,
+      0
+    );
+
+    return {
+      totalVehicles,
+      totalUnits: stockAgg._sum.quantity || 0,
+      totalInventoryValue,
+      outOfStockCount,
+      totalPurchases: purchaseAgg._count.id || 0,
+      totalRevenue: Number(purchaseAgg._sum.totalPrice || 0),
+    };
+  }
 }

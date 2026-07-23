@@ -194,3 +194,21 @@ export const restockVehicle = async (
     next(error);
   }
 };
+
+export const getVehicleStats = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const stats = await vehicleService.getStats();
+
+    return res.status(200).json({
+      success: true,
+      message: "Vehicle statistics retrieved successfully",
+      data: stats,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

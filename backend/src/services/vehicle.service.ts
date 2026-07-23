@@ -108,4 +108,8 @@ export class VehicleService {
 
     return this.vehicleRepository.restock(vehicleId, quantity);
   }
+
+  async getStats() {
+    return this.vehicleRepository.getStats();
+  }
 }
