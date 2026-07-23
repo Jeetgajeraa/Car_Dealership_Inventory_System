@@ -344,6 +344,15 @@ Implemented color palette tokens, AuthContext state, Axios interceptor, floating
 - added meta tags
 
 
+## Prompt 28
+
+### User Prompt
+>make md file for setup of program and explain each part of project in readme.md file in root folder and make sure leave space for pictures.
+
+### AI Assistance(gemini 3.6)
+- added meta tags
+
+
 
 
 
