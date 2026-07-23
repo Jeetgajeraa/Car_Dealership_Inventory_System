@@ -3,7 +3,7 @@ import { vehiclesApi } from "../api/vehicles";
 import type { Vehicle } from "../api/types";
 import type { VehicleFormState } from "../components/vehicles/AdminVehicleModal";
 import { AdminVehicleModal } from "../components/vehicles/AdminVehicleModal";
-import { useAuth } from "../context/AuthContext";
+
 import {
   Car,
   Edit2,
@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 
 export const MyVehiclesPage = () => {
-  const { user, isAdmin } = useAuth();
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -178,7 +177,7 @@ export const MyVehiclesPage = () => {
                 className="bg-white rounded-3xl border border-border overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group"
               >
                 {/* Card Illustration */}
-                <div className="relative h-40 bg-gradient-to-br from-mint to-mint-soft flex items-center justify-center overflow-hidden border-b border-border/40">
+                <div className="relative h-40 bg-linear-to-br from-mint to-mint-soft flex items-center justify-center overflow-hidden border-b border-border/40">
                   <div className="flex flex-col items-center gap-2 text-dark/70 group-hover:scale-105 transition-transform duration-300">
                     <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-dark">
                       <Car className="w-8 h-8" />
@@ -256,7 +255,6 @@ export const MyVehiclesPage = () => {
         form={form}
         setForm={setForm}
         submitting={submitting}
-        isAdmin={isAdmin}
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
       />

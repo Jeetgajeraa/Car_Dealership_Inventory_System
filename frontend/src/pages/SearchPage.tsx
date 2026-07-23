@@ -170,7 +170,6 @@ export const SearchPage = () => {
         form={adminForm}
         setForm={setAdminForm}
         submitting={adminSubmitting}
-        isAdmin={isAdmin}
         onClose={() => setAdminModalOpen(false)}
         onSubmit={handleAdminFormSubmit}
       />

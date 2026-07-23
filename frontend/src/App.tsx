@@ -6,7 +6,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { SearchPage } from "./pages/SearchPage";
 import { PurchasesPage } from "./pages/PurchasesPage";
 import { MyVehiclesPage } from "./pages/MyVehiclesPage";
-import { Search, ShieldCheck, Zap, Layers, ArrowUpRight } from "lucide-react";
+import { Zap, ArrowUpRight } from "lucide-react";
 
 function HomePage() {
   const { isAuthenticated } = useAuth();

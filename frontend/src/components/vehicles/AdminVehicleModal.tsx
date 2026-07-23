@@ -18,7 +18,6 @@ interface AdminVehicleModalProps {
   form: VehicleFormState;
   setForm: (form: VehicleFormState) => void;
   submitting: boolean;
-  isAdmin?: boolean;
   onClose: () => void;
   onSubmit: (e: FormEvent) => void;
 }
@@ -29,7 +28,6 @@ export const AdminVehicleModal = ({
   form,
   setForm,
   submitting,
-  isAdmin = false,
   onClose,
   onSubmit,
 }: AdminVehicleModalProps) => {
@@ -115,12 +113,12 @@ export const AdminVehicleModal = ({
             <div>
               <label className="block text-xs font-bold uppercase text-dark mb-1">
                 Quantity
-                <span className="ml-1 text-muted normal-case font-normal">(read-only)</span>
+                <span className="ml-1 text-muted normal-case font-normal">(read-only — use Restock to change)</span>
               </label>
-                <div className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-border text-sm text-muted flex items-center gap-2">
-                  <Lock className="w-3.5 h-3.5 shrink-0" />
-                  <span>{form.quantity} units</span>
-                </div>
+              <div className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-border text-sm text-muted flex items-center gap-2">
+                <Lock className="w-3.5 h-3.5 shrink-0" />
+                <span>{form.quantity} units</span>
+              </div>
             </div>
           </div>
 

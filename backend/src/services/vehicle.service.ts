@@ -69,9 +69,8 @@ export class VehicleService {
       );
     }
 
-    // Only admins can change quantity — strip it for regular users
-    const { quantity: _qty, ...nonAdminInput } = input;
-    const updateData = user?.role === "ADMIN" ? input : nonAdminInput;
+    // Quantity is always excluded from updates — use the Restock endpoint instead
+    const { quantity: _qty, ...updateData } = input;
 
     return this.vehicleRepository.update(id, updateData);
   }
