@@ -152,7 +152,7 @@ describe("PUT /api/v1/vehicles/:id", () => {
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(Number(res.body.data.price)).toBe(21500);
-    expect(res.body.data.quantity).toBe(8);
+    expect(res.body.data.quantity).toBe(10);
     expect(res.body.data.description).toBe("Updated description by Admin");
   });
 

@@ -247,4 +247,6 @@ The backend was built following Test-Driven Development (TDD):
 - 50+ Jest unit and integration tests covering registration, login, JWT authentication, inventory operations, and transactional stock updates.
 - Run `npm test` inside `backend/` to execute all tests.
 
+![npm test](docs/screenshots/test.png)
+
 ---
