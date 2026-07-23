@@ -39,11 +39,11 @@ export const VehicleFilters = ({
   return (
     <div className="w-full space-y-4">
       {/* Desktop Horizontal Filter Bar */}
-      <div className="hidden lg:block bg-white rounded-3xl p-5 border border-border shadow-sm">
+      <div className="hidden lg:block bg-white rounded-3xl p-6 border border-border shadow-sm">
         <form onSubmit={onSubmit} className="space-y-4">
-          <div className="flex items-center justify-between border-b border-border/50 pb-3">
-            <div className="flex items-center gap-2 text-dark font-bold text-base">
-              <Filter className="w-4 h-4 text-emerald-700" />
+          <div className="flex items-center justify-between border-b border-border/50 pb-3.5">
+            <div className="flex items-center gap-2 text-dark font-extrabold text-lg font-heading">
+              <Filter className="w-5 h-5 text-emerald-700" />
               <span>Filter & Sort Vehicles</span>
             </div>
 
@@ -51,27 +51,27 @@ export const VehicleFilters = ({
               <button
                 type="button"
                 onClick={onReset}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-mint-soft border border-border text-xs font-semibold text-muted hover:text-dark hover:bg-mint transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-mint-soft border border-border text-xs sm:text-sm font-bold text-muted hover:text-dark hover:bg-mint transition-colors cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-4 h-4" />
                 <span>Reset All</span>
               </button>
 
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 bg-dark text-white font-semibold px-5 py-1.5 rounded-full hover:bg-dark-hover transition-colors shadow-sm text-xs cursor-pointer"
+                className="inline-flex items-center gap-2 bg-dark text-white font-bold px-6 py-2 rounded-full hover:bg-dark-hover transition-colors shadow-sm text-xs sm:text-sm cursor-pointer"
               >
-                <Search className="w-3.5 h-3.5 text-lime" />
+                <Search className="w-4 h-4 text-lime" />
                 <span>Apply Filters</span>
               </button>
             </div>
           </div>
 
           {/* Horizontal Inputs Grid */}
-          <div className="grid grid-cols-12 gap-3 items-end">
+          <div className="grid grid-cols-12 gap-3.5 items-end">
             {/* Make */}
             <div className="col-span-2">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-dark uppercase tracking-wider mb-1.5">
                 Make
               </label>
               <input
@@ -79,13 +79,13 @@ export const VehicleFilters = ({
                 value={filters.make || ""}
                 onChange={(e) => setFilters({ ...filters, make: e.target.value })}
                 placeholder="e.g. Toyota"
-                className="w-full px-3.5 py-2 rounded-xl bg-mint-soft border border-border text-xs font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
+                className="w-full px-4 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
               />
             </div>
 
             {/* Model */}
             <div className="col-span-2">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-dark uppercase tracking-wider mb-1.5">
                 Model
               </label>
               <input
@@ -93,19 +93,19 @@ export const VehicleFilters = ({
                 value={filters.model || ""}
                 onChange={(e) => setFilters({ ...filters, model: e.target.value })}
                 placeholder="e.g. Camry"
-                className="w-full px-3.5 py-2 rounded-xl bg-mint-soft border border-border text-xs font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
+                className="w-full px-4 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
               />
             </div>
 
             {/* Category */}
             <div className="col-span-2">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-dark uppercase tracking-wider mb-1.5">
                 Category
               </label>
               <select
                 value={filters.categoryId || ""}
                 onChange={(e) => setFilters({ ...filters, categoryId: e.target.value })}
-                className="w-full px-3 py-2 rounded-xl bg-mint-soft border border-border text-xs font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark cursor-pointer"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark cursor-pointer"
               >
                 <option value="">All Categories</option>
                 {CATEGORIES.map((cat) => (
@@ -118,7 +118,7 @@ export const VehicleFilters = ({
 
             {/* Price Range (Min / Max) */}
             <div className="col-span-3">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-dark uppercase tracking-wider mb-1.5">
                 Price Range (₹)
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -129,7 +129,7 @@ export const VehicleFilters = ({
                     setFilters({ ...filters, minPrice: e.target.value ? Number(e.target.value) : undefined })
                   }
                   placeholder="Min Price"
-                  className="w-full px-3 py-2 rounded-xl bg-mint-soft border border-border text-xs font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
                 />
                 <input
                   type="number"
@@ -138,21 +138,21 @@ export const VehicleFilters = ({
                     setFilters({ ...filters, maxPrice: e.target.value ? Number(e.target.value) : undefined })
                   }
                   placeholder="Max Price"
-                  className="w-full px-3 py-2 rounded-xl bg-mint-soft border border-border text-xs font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-medium text-dark focus:outline-none focus:ring-2 focus:ring-dark"
                 />
               </div>
             </div>
 
             {/* Sort Dropdown */}
             <div className="col-span-3">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1 items-center gap-1">
-                <ArrowUpDown className="w-3 h-3 text-emerald-700" />
+              <label className="block text-xs font-bold text-dark uppercase tracking-wider mb-1.5 items-center gap-1">
+                <ArrowUpDown className="w-3.5 h-3.5 text-emerald-700" />
                 <span>Sort By</span>
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl bg-mint-soft border border-border text-xs font-semibold text-dark focus:outline-none focus:ring-2 focus:ring-dark cursor-pointer"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-mint-soft border border-border text-sm font-bold text-dark focus:outline-none focus:ring-2 focus:ring-dark cursor-pointer"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>

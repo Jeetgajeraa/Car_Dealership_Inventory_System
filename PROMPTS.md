@@ -327,5 +327,23 @@ Implemented color palette tokens, AuthContext state, Axios interceptor, floating
 ### AI Assistance(Claude sonet 4.6)
 - services for car inventory is implemented with all test pass 
 
+## Prompt 27
+
+### User Prompt
+>in frontend look for any responsiveness issue and make it proper increse size of font in each page.
+
+### AI Assistance(Claude sonet 4.6)
+- improved responsiveness
+
+## Prompt 28
+
+### User Prompt
+>according to given description make a proper meta tags for site.
+
+### AI Assistance(gemini 3.6)
+- added meta tags
+
+
+
 
 

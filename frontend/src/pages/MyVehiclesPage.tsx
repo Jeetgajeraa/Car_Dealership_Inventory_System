@@ -118,10 +118,10 @@ export const MyVehiclesPage = () => {
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-border shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-2">
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
+            <h1 className="text-xl sm:text-3xl font-extrabold text-dark tracking-tight font-heading">
               My Vehicles
             </h1>
-            <p className="text-sm text-muted">
+            <p className="text-base sm:text-lg text-muted font-medium">
               Vehicles you've added to the dealership inventory.
             </p>
           </div>

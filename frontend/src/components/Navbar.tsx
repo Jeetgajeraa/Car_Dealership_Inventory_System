@@ -37,26 +37,26 @@ export const Navbar = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-2.5 group shrink-0"
           >
-            <div className="w-9 h-9 rounded-full bg-dark flex items-center justify-center text-lime font-bold transition-transform group-hover:scale-105 shadow-sm">
-              <Car className="w-5 h-5" />
+            <div className="w-10 h-10 pt-1 rounded-full bg-dark flex items-center justify-center text-lime font-bold transition-transform group-hover:scale-105 shadow-sm">
+              <img src="./fevicon.svg" alt="nothing" />
             </div>
-            <span className="text-lg sm:text-xl font-extrabold tracking-tight text-dark">
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-dark font-heading">
               auto<span className="text-dark-hover font-normal">.dealership</span>
             </span>
           </RouterLink>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-6 font-medium text-sm text-muted">
+          <div className="hidden lg:flex items-center gap-6 font-semibold text-base text-muted">
             {isAuthenticated && (
               <RouterLink
                 to="/purchases"
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                   isActive("/purchases")
-                    ? "bg-mint text-dark font-bold"
+                    ? "bg-mint text-dark font-bold shadow-xs"
                     : "hover:text-dark hover:bg-mint/50"
                 }`}
               >
-                <ShoppingBag className="w-4 h-4" />
+                <ShoppingBag className="w-4.5 h-4.5" />
                 <span>My Purchases</span>
               </RouterLink>
             )}
@@ -64,13 +64,13 @@ export const Navbar = () => {
             {isAuthenticated && (
               <RouterLink
                 to="/my-vehicles"
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                   isActive("/my-vehicles")
-                    ? "bg-mint text-dark font-bold"
+                    ? "bg-mint text-dark font-bold shadow-xs"
                     : "hover:text-dark hover:bg-mint/50"
                 }`}
               >
-                <Car className="w-4 h-4" />
+                <Car className="w-4.5 h-4.5" />
                 <span>My Vehicles</span>
               </RouterLink>
             )}
@@ -80,22 +80,22 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mint text-xs font-semibold text-dark border border-border">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-mint text-sm font-bold text-dark border border-border">
                   {isAdmin ? (
-                    <Shield className="w-3.5 h-3.5 text-emerald-700" />
+                    <Shield className="w-4 h-4 text-emerald-700" />
                   ) : (
-                    <UserIcon className="w-3.5 h-3.5 text-emerald-700" />
+                    <UserIcon className="w-4 h-4 text-emerald-700" />
                   )}
                   <span>{user?.name}</span>
-                  <span className="bg-dark text-lime px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider">
+                  <span className="bg-dark text-lime px-2.5 py-0.5 rounded-full text-[11px] uppercase font-extrabold tracking-wider">
                     {user?.role}
                   </span>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-dark bg-emerald-50 hover:bg-emerald-100 border border-border/80 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-dark bg-emerald-50 hover:bg-emerald-100 border border-border/80 transition-colors cursor-pointer"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  <LogOut className="w-4 h-4" />
                   <span>Logout</span>
                 </button>
               </div>
@@ -103,7 +103,7 @@ export const Navbar = () => {
               <div className="flex items-center gap-2">
                 <RouterLink
                   to="/login"
-                  className="px-4 py-2 text-sm font-semibold text-dark hover:text-emerald-800 transition-colors"
+                  className="px-4 py-2.5 text-base font-bold text-dark hover:text-emerald-800 transition-colors"
                 >
                   Sign In
                 </RouterLink>

@@ -10,20 +10,34 @@
   --color-forest: #062b24;
   --color-lime: #c2f254;
   --color-lime-hover: #b0e63f;
-  --color-muted: #567e74;
+  --color-muted: #4e756c;
   --color-border: #d1fae5;
 }
 
 @layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     background-color: var(--color-mint);
     color: var(--color-forest);
     font-family: 'Inclusive Sans', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
     min-height: 100vh;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, .font-heading {
     font-family: 'Fraunces', serif;
+    letter-spacing: -0.02em;
+  }
+
+  input, select, textarea, button {
+    font-family: 'Inclusive Sans', sans-serif;
   }
 }
