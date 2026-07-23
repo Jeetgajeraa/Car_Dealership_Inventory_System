@@ -57,3 +57,13 @@ export interface CreateVehiclePayload {
 }
 
 export interface UpdateVehiclePayload extends Partial<CreateVehiclePayload> {}
+
+export interface VehicleStats {
+  totalVehicles: number;
+  totalUnits: number;
+  totalInventoryValue: number;
+  outOfStockCount: number;
+  totalPurchases: number;
+  totalRevenue: number;
+}
+

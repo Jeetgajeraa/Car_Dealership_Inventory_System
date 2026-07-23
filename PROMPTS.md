@@ -319,5 +319,13 @@ Implemented color palette tokens, AuthContext state, Axios interceptor, floating
 ### AI Assistance(Claude sonet 4.6)
 - test cases made for state  
 
+## Prompt 27
+
+### User Prompt
+>according to state.test make controller and their services which calculate the state for car inventory
+
+### AI Assistance(Claude sonet 4.6)
+- services for car inventory is implemented with all test pass 
+
 
 

@@ -66,4 +66,10 @@ export const vehiclesApi = {
     });
     return response.data.data;
   },
+
+  getVehicleStats: async () => {
+    const response = await api.get<ApiResponse<import("./types").VehicleStats>>("/vehicles/stats");
+    return response.data.data;
+  },
 };
+

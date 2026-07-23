@@ -5,8 +5,8 @@ import { VehicleGrid } from "../components/vehicles/VehicleGrid";
 import { PurchaseModal } from "../components/vehicles/PurchaseModal";
 import { AdminVehicleModal } from "../components/vehicles/AdminVehicleModal";
 import { RestockModal } from "../components/vehicles/RestockModal";
+import { AdminStatsBanner } from "../components/vehicles/AdminStatsBanner";
 import {
-  Plus,
   SlidersHorizontal,
   CheckCircle,
   AlertCircle,
@@ -55,36 +55,18 @@ export const SearchPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-border shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="space-y-2">
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
-            Vehicle Catalog & Inventory
-          </h1>
-          <p className="text-sm text-muted">
-            Search, filter specs, sort inventory, and purchase vehicles directly from live stock.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          {isAuthenticated && (
-            <button
-              onClick={() => handleOpenAdminModal()}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-dark text-white hover:bg-dark-hover px-5 py-3 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer"
-            >
-              <Plus className="w-4 h-4 text-lime" />
-              <span>Add New Vehicle</span>
-            </button>
-          )}
-
-          <button
-            onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="lg:hidden flex-1 inline-flex items-center justify-center gap-2 bg-mint text-dark border border-border px-4 py-3 rounded-full text-sm font-semibold cursor-pointer"
-          >
-            <SlidersHorizontal className="w-4 h-4" />
-            <span>Filters & Sort</span>
-          </button>
-        </div>
+      <div className="flex items-center gap-3 w-full md:w-auto">
+        <button
+          onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+          className="lg:hidden flex-1 inline-flex items-center justify-center gap-2 bg-mint text-dark border border-border px-4 py-3 rounded-full text-sm font-semibold cursor-pointer"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          <span>Filters & Sort</span>
+        </button>
       </div>
+
+      {/* Admin Dashboard Stats Banner */}
+      {isAdmin && <AdminStatsBanner />}
 
       {/* Success Notification */}
       {successMsg && (

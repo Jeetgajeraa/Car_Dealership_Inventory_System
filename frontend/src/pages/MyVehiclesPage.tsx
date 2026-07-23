@@ -14,6 +14,7 @@ import {
   Inbox,
   Loader2,
   Info,
+  Plus,
 } from "lucide-react";
 
 export const MyVehiclesPage = () => {
@@ -22,7 +23,7 @@ export const MyVehiclesPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  // Edit modal state
+  // Modal state (Create & Edit)
   const [modalOpen, setModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
   const [form, setForm] = useState<VehicleFormState>({
@@ -55,6 +56,19 @@ export const MyVehiclesPage = () => {
     fetchMyVehicles();
   }, []);
 
+  const handleOpenCreate = () => {
+    setEditingVehicle(null);
+    setForm({
+      make: "",
+      model: "",
+      categoryId: "Sedan",
+      price: "25000",
+      quantity: "1",
+      description: "",
+    });
+    setModalOpen(true);
+  };
+
   const handleOpenEdit = (vehicle: Vehicle) => {
     setEditingVehicle(vehicle);
     setForm({
@@ -70,23 +84,29 @@ export const MyVehiclesPage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!editingVehicle) return;
     setSubmitting(true);
     setError(null);
     try {
-      await vehiclesApi.updateVehicle(editingVehicle.id, {
+      const payload = {
         make: form.make,
         model: form.model,
         categoryId: form.categoryId,
         price: Number(form.price),
         quantity: Number(form.quantity),
         description: form.description,
-      });
-      setSuccessMsg(`${form.make} ${form.model} updated successfully!`);
+      };
+
+      if (editingVehicle) {
+        await vehiclesApi.updateVehicle(editingVehicle.id, payload);
+        setSuccessMsg(`${form.make} ${form.model} updated successfully!`);
+      } else {
+        await vehiclesApi.createVehicle(payload);
+        setSuccessMsg(`${form.make} ${form.model} added to inventory successfully!`);
+      }
       setModalOpen(false);
       fetchMyVehicles();
     } catch (err: any) {
-      setError(err.response?.data?.message || "Update failed.");
+      setError(err.response?.data?.message || "Operation failed.");
     } finally {
       setSubmitting(false);
     }
@@ -94,14 +114,10 @@ export const MyVehiclesPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* Page Header */}
+      {/* Page Header Banner */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-border shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mint text-dark text-xs font-semibold">
-              <Car className="w-3.5 h-3.5" />
-              <span>My Inventory</span>
-            </div>
             <h1 className="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
               My Vehicles
             </h1>
@@ -109,6 +125,14 @@ export const MyVehiclesPage = () => {
               Vehicles you've added to the dealership inventory.
             </p>
           </div>
+
+          <button
+            onClick={handleOpenCreate}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-dark text-white hover:bg-dark-hover px-5 py-3 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-lime" />
+            <span>Add New Vehicle</span>
+          </button>
         </div>
       </div>
 
@@ -154,18 +178,14 @@ export const MyVehiclesPage = () => {
 
       {/* Empty State */}
       {!loading && vehicles.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-24 gap-5 text-center">
+        <div className="flex flex-col items-center justify-center py-24 gap-5 text-center bg-white rounded-3xl p-8 border border-border shadow-xs">
           <div className="w-20 h-20 rounded-full bg-mint flex items-center justify-center">
             <Inbox className="w-10 h-10 text-emerald-700" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-xl font-bold text-dark">No vehicles yet</h2>
+            <h2 className="text-xl font-bold text-dark">No vehicles added yet</h2>
             <p className="text-sm text-muted max-w-sm">
-              You haven't added any vehicles to the inventory yet. Head to the{" "}
-              <a href="/search" className="text-emerald-700 font-semibold hover:underline">
-                Search Inventory
-              </a>{" "}
-              page and click "Add New Vehicle".
+              You haven't added any vehicles to the inventory yet. Click below to add your first vehicle.
             </p>
           </div>
         </div>
@@ -271,7 +291,7 @@ export const MyVehiclesPage = () => {
         </div>
       )}
 
-      {/* Edit Modal */}
+      {/* Create / Edit Modal */}
       <AdminVehicleModal
         isOpen={modalOpen}
         editingVehicle={editingVehicle}
