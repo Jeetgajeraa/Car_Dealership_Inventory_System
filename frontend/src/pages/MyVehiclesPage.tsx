@@ -222,9 +222,8 @@ export const MyVehiclesPage = () => {
                     {/* Stock Badge */}
                     <div className="absolute top-3 left-3">
                       <span
-                        className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs ${
-                          isAvailable ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
-                        }`}
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs ${isAvailable ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
+                          }`}
                       >
                         {isAvailable ? "In Stock" : "Sold Out"}
                       </span>

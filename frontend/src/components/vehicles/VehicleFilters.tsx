@@ -145,7 +145,7 @@ export const VehicleFilters = ({
 
             {/* Sort Dropdown */}
             <div className="col-span-3">
-              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1 flex items-center gap-1">
+              <label className="block text-[11px] font-bold text-dark uppercase tracking-wider mb-1 items-center gap-1">
                 <ArrowUpDown className="w-3 h-3 text-emerald-700" />
                 <span>Sort By</span>
               </label>

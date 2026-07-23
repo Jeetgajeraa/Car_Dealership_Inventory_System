@@ -6,7 +6,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { SearchPage } from "./pages/SearchPage";
 import { PurchasesPage } from "./pages/PurchasesPage";
 import { MyVehiclesPage } from "./pages/MyVehiclesPage";
-import { Zap, ArrowUpRight } from "lucide-react";
+import { Zap } from "lucide-react";
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
@@ -41,14 +41,11 @@ function HomePage() {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-dark text-white hover:bg-dark-hover px-7 py-4 rounded-full font-semibold shadow-md transition-all hover:scale-105"
           >
             <span>Get Started & Create Account</span>
-            <div className="w-6 h-6 rounded-full bg-lime text-dark flex items-center justify-center">
-              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-            </div>
           </Link>
 
           <Link
             to="/login"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-dark hover:bg-mint-soft px-7 py-4 rounded-full font-semibold border border-border shadow-xs transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-dark hover:bg-mint-soft px-7 py-3 rounded-full font-semibold border border-border shadow-xs transition-all text-xs sm:text-sm"
           >
             <span>Sign In to Account</span>
           </Link>
@@ -68,7 +65,6 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/search" element={<SearchPage />} />
                 <Route path="/purchases" element={<PurchasesPage />} />
                 <Route path="/my-vehicles" element={<MyVehiclesPage />} />
                 <Route path="/login" element={<LoginPage />} />

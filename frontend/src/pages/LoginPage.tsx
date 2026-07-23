@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
     try {
       await login(email, password);
-      navigate("/search");
+      navigate("/");
     } catch (err: any) {
       setError(
         err.response?.data?.message || "Invalid credentials. Please try again."

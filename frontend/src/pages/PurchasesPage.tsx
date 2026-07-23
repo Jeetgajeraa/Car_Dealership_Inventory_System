@@ -61,7 +61,7 @@ export const PurchasesPage = () => {
             </p>
           </div>
           <Link
-            to="/search"
+            to="/"
             className="inline-flex items-center gap-2 bg-dark text-white hover:bg-dark-hover px-6 py-3 rounded-full text-sm font-semibold shadow-sm transition-all"
           >
             <span>Explore Vehicles</span>

@@ -54,7 +54,10 @@ export const SearchPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      {/* Header Banner */}
+
+      {/* Admin Dashboard Stats Banner */}
+      {isAdmin && <AdminStatsBanner />}
+
       <div className="flex items-center gap-3 w-full md:w-auto">
         <button
           onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
@@ -64,9 +67,6 @@ export const SearchPage = () => {
           <span>Filters & Sort</span>
         </button>
       </div>
-
-      {/* Admin Dashboard Stats Banner */}
-      {isAdmin && <AdminStatsBanner />}
 
       {/* Success Notification */}
       {successMsg && (
