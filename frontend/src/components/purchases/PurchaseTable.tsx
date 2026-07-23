@@ -57,7 +57,7 @@ export const PurchaseTable = ({ purchases }: PurchaseTableProps) => {
                 })}
               </td>
               <td className="py-4 px-6 text-right font-mono text-xs text-slate-400">
-                {purchase.id.substring(0, 13)}...
+                {purchase.id}
               </td>
             </tr>
           ))}

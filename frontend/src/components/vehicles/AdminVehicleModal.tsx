@@ -112,13 +112,33 @@ export const AdminVehicleModal = ({
             </div>
             <div>
               <label className="block text-xs font-bold uppercase text-dark mb-1">
-                Quantity
-                <span className="ml-1 text-muted normal-case font-normal">(read-only — use Restock to change)</span>
+                Quantity *
+                {editingVehicle && (
+                  <span className="ml-1 text-muted normal-case font-normal">(only admin can restoke)</span>
+                )}
               </label>
-              <div className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-border text-sm text-muted flex items-center gap-2">
-                <Lock className="w-3.5 h-3.5 shrink-0" />
-                <span>{form.quantity} units</span>
-              </div>
+              {editingVehicle ? (
+                <div className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 border border-border text-sm text-muted flex items-center gap-2">
+                  <Lock className="w-3.5 h-3.5 shrink-0" />
+                  <span>{form.quantity} units</span>
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  required
+                  value={form.quantity}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/^0+(?=\d)/, "");
+                    if (raw === "" || /^\d+$/.test(raw)) {
+                      setForm({ ...form, quantity: raw });
+                    }
+                  }}
+                  placeholder="e.g. 5"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-mint-soft border border-border text-sm"
+                />
+              )}
             </div>
           </div>
 

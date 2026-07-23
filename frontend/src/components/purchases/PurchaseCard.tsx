@@ -37,7 +37,7 @@ export const PurchaseCard = ({ purchase }: PurchaseCardProps) => {
         </div>
       </div>
 
-      <div className="text-[10px] text-slate-400 font-mono truncate pt-1">
+      <div className="text-[10px] text-slate-400 font-mono pt-1">
         Order ID: {purchase.id}
       </div>
     </div>

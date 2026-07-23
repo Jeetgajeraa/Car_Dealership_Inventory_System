@@ -3,6 +3,7 @@ import { vehiclesApi } from "../api/vehicles";
 import type { Vehicle } from "../api/types";
 import type { VehicleFormState } from "../components/vehicles/AdminVehicleModal";
 import { AdminVehicleModal } from "../components/vehicles/AdminVehicleModal";
+import { VehicleDetailModal } from "../components/vehicles/VehicleDetailModal";
 
 import {
   Car,
@@ -12,6 +13,7 @@ import {
   AlertCircle,
   Inbox,
   Loader2,
+  Info,
 } from "lucide-react";
 
 export const MyVehiclesPage = () => {
@@ -32,6 +34,9 @@ export const MyVehiclesPage = () => {
     description: "",
   });
   const [submitting, setSubmitting] = useState(false);
+
+  // Detail modal state
+  const [selectedDetailVehicle, setSelectedDetailVehicle] = useState<Vehicle | null>(null);
 
   const fetchMyVehicles = async () => {
     setLoading(true);
@@ -101,7 +106,7 @@ export const MyVehiclesPage = () => {
               My Vehicles
             </h1>
             <p className="text-sm text-muted">
-              Vehicles you've added to the dealership inventory. Only you and admins can edit these.
+              Vehicles you've added to the dealership inventory.
             </p>
           </div>
         </div>
@@ -171,69 +176,87 @@ export const MyVehiclesPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {vehicles.map((vehicle) => {
             const isAvailable = vehicle.quantity > 0;
+            const MAX_DESC_LENGTH = 65;
+            const isLongDesc = (vehicle.description?.length || 0) > MAX_DESC_LENGTH;
+            const truncatedDesc = isLongDesc
+              ? `${vehicle.description?.slice(0, MAX_DESC_LENGTH).trim()}...`
+              : vehicle.description;
+
             return (
               <div
                 key={vehicle.id}
-                className="bg-white rounded-3xl border border-border overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group"
+                className="bg-white rounded-3xl border border-border overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
               >
-                {/* Card Illustration */}
-                <div className="relative h-40 bg-linear-to-br from-mint to-mint-soft flex items-center justify-center overflow-hidden border-b border-border/40">
-                  <div className="flex flex-col items-center gap-2 text-dark/70 group-hover:scale-105 transition-transform duration-300">
-                    <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-dark">
-                      <Car className="w-8 h-8" />
+                <div>
+                  {/* Card Illustration */}
+                  <div className="relative h-40 bg-linear-to-br from-mint to-mint-soft flex items-center justify-center overflow-hidden border-b border-border/40">
+                    <div className="flex flex-col items-center gap-2 text-dark/70 group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center text-dark">
+                        <Car className="w-8 h-8" />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-muted">
+                        {vehicle.make}
+                      </span>
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted">
-                      {vehicle.make}
-                    </span>
-                  </div>
 
-                  {/* Stock Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span
-                      className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs ${
-                        isAvailable ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
-                      }`}
-                    >
-                      {isAvailable ? "In Stock" : "Sold Out"}
-                    </span>
-                  </div>
-
-                  {/* Price Badge */}
-                  <div className="absolute bottom-3 right-3 bg-dark text-lime font-extrabold px-3 py-1 rounded-full text-sm shadow-md">
-                    ₹{Number(vehicle.price).toLocaleString()}
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="p-5 space-y-3 flex-1">
-                  <div>
-                    <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full mb-1">
-                      <Tag className="w-3 h-3" />
-                      <span>{vehicle.categoryId || "General"}</span>
+                    {/* Stock Badge */}
+                    <div className="absolute top-3 left-3">
+                      <span
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs ${
+                          isAvailable ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
+                        }`}
+                      >
+                        {isAvailable ? "In Stock" : "Sold Out"}
+                      </span>
                     </div>
-                    <h3 className="text-xl font-extrabold text-dark group-hover:text-emerald-800 transition-colors">
-                      {vehicle.make} {vehicle.model}
-                    </h3>
+
+                    {/* Price Badge */}
+                    <div className="absolute bottom-3 right-3 bg-dark text-lime font-extrabold px-3 py-1 rounded-full text-sm shadow-md">
+                      ₹{Number(vehicle.price).toLocaleString()}
+                    </div>
                   </div>
 
-                  {vehicle.description ? (
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                      {vehicle.description}
-                    </p>
-                  ) : (
-                    <p className="text-xs text-slate-400 italic">No description provided.</p>
-                  )}
+                  {/* Details */}
+                  <div className="p-5 space-y-3 flex-1">
+                    <div>
+                      <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full mb-1">
+                        <Tag className="w-3 h-3" />
+                        <span>{vehicle.categoryId || "General"}</span>
+                      </div>
+                      <h3 className="text-xl font-extrabold text-dark group-hover:text-emerald-800 transition-colors">
+                        {vehicle.make} {vehicle.model}
+                      </h3>
+                    </div>
 
-                  <div className="text-xs font-semibold text-muted flex items-center justify-between pt-2 border-t border-border/40">
-                    <span>Quantity in Stock:</span>
-                    <span className={`font-extrabold text-sm ${isAvailable ? "text-dark" : "text-rose-600"}`}>
-                      {vehicle.quantity} {vehicle.quantity === 1 ? "unit" : "units"}
-                    </span>
+                    {vehicle.description ? (
+                      <div className="text-xs text-slate-600 leading-relaxed">
+                        <span>{truncatedDesc}</span>
+                        {isLongDesc && (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedDetailVehicle(vehicle)}
+                            className="ml-1.5 text-emerald-700 font-bold hover:underline cursor-pointer inline-flex items-center gap-0.5"
+                          >
+                            <span>more</span>
+                            <Info className="w-3 h-3 inline stroke-[2.5]" />
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-slate-400 italic">No description provided.</p>
+                    )}
+
+                    <div className="text-xs font-semibold text-muted flex items-center justify-between pt-2 border-t border-border/40">
+                      <span>Quantity in Stock:</span>
+                      <span className={`font-extrabold text-sm ${isAvailable ? "text-dark" : "text-rose-600"}`}>
+                        {vehicle.quantity} {vehicle.quantity === 1 ? "unit" : "units"}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 {/* Edit Footer */}
-                <div className="px-5 pb-5">
+                <div className="p-5 pt-0">
                   <button
                     onClick={() => handleOpenEdit(vehicle)}
                     className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-dark text-white text-sm font-semibold hover:bg-dark-hover transition-colors shadow-sm cursor-pointer"
@@ -257,6 +280,13 @@ export const MyVehiclesPage = () => {
         submitting={submitting}
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
+      />
+
+      {/* Vehicle Details Modal */}
+      <VehicleDetailModal
+        vehicle={selectedDetailVehicle}
+        isOpen={!!selectedDetailVehicle}
+        onClose={() => setSelectedDetailVehicle(null)}
       />
     </div>
   );

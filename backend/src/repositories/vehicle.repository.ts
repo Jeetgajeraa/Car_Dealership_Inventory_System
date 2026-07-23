@@ -117,8 +117,10 @@ export class VehicleRepository {
   }
 
   async delete(id: string) {
-    return prisma.vehicle.delete({
-      where: { id },
+    return prisma.$transaction(async (tx) => {
+      // Remove purchase history first to satisfy FK constraint
+      await tx.purchase.deleteMany({ where: { vehicleId: id } });
+      return tx.vehicle.delete({ where: { id } });
     });
   }
 

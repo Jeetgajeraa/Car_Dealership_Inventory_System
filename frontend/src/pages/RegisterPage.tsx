@@ -91,7 +91,7 @@ export const RegisterPage = () => {
                 type="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 placeholder="name@example.com"
                 className="w-full pl-10 pr-4 py-3 rounded-2xl bg-mint-soft border border-border text-forest placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-dark focus:bg-white transition-all text-sm"
               />

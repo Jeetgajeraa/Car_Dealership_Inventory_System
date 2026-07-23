@@ -6,7 +6,6 @@ import { PurchaseModal } from "../components/vehicles/PurchaseModal";
 import { AdminVehicleModal } from "../components/vehicles/AdminVehicleModal";
 import { RestockModal } from "../components/vehicles/RestockModal";
 import {
-  Sparkles,
   Plus,
   SlidersHorizontal,
   CheckCircle,
@@ -24,6 +23,8 @@ export const SearchPage = () => {
     setSuccessMsg,
     filters,
     setFilters,
+    sortBy,
+    setSortBy,
     mobileFilterOpen,
     setMobileFilterOpen,
     selectedVehicleForPurchase,
@@ -52,19 +53,15 @@ export const SearchPage = () => {
   } = useVehicles();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
       {/* Header Banner */}
       <div className="bg-white rounded-3xl p-6 sm:p-8 border border-border shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mint text-dark text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Live Dealership Inventory</span>
-          </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-dark tracking-tight">
             Vehicle Catalog & Inventory
           </h1>
           <p className="text-sm text-muted">
-            Search, filter specs, and purchase vehicles directly from live inventory stock.
+            Search, filter specs, sort inventory, and purchase vehicles directly from live stock.
           </p>
         </div>
 
@@ -81,10 +78,10 @@ export const SearchPage = () => {
 
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="md:hidden flex-1 inline-flex items-center justify-center gap-2 bg-mint text-dark border border-border px-4 py-3 rounded-full text-sm font-semibold cursor-pointer"
+            className="lg:hidden flex-1 inline-flex items-center justify-center gap-2 bg-mint text-dark border border-border px-4 py-3 rounded-full text-sm font-semibold cursor-pointer"
           >
             <SlidersHorizontal className="w-4 h-4" />
-            <span>Filters</span>
+            <span>Filters & Sort</span>
           </button>
         </div>
       </div>
@@ -121,37 +118,38 @@ export const SearchPage = () => {
         </div>
       )}
 
-      {/* Main Content Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <VehicleFilters
-          filters={filters}
-          setFilters={setFilters}
-          mobileFilterOpen={mobileFilterOpen}
-          setMobileFilterOpen={setMobileFilterOpen}
-          onSubmit={handleFilterSubmit}
-          onReset={handleResetFilters}
-        />
+      {/* Horizontal Filter & Sort Bar */}
+      <VehicleFilters
+        filters={filters}
+        setFilters={setFilters}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        mobileFilterOpen={mobileFilterOpen}
+        setMobileFilterOpen={setMobileFilterOpen}
+        onSubmit={handleFilterSubmit}
+        onReset={handleResetFilters}
+      />
 
-        <main className="lg:col-span-3 space-y-6">
-          <VehicleGrid
-            vehicles={vehicles}
-            loading={loading}
-            isAuthenticated={isAuthenticated}
-            isAdmin={isAdmin}
-            onResetFilters={handleResetFilters}
-            onPurchase={(v) => {
-              setSelectedVehicleForPurchase(v);
-              setPurchaseQuantity(1);
-            }}
-            onEdit={(v) => handleOpenAdminModal(v)}
-            onRestock={(v) => {
-              setRestockVehicle(v);
-              setRestockQuantity(1);
-            }}
-            onDelete={handleDeleteVehicle}
-          />
-        </main>
-      </div>
+      {/* Vehicle Grid (Full width below horizontal filters) */}
+      <main className="space-y-6">
+        <VehicleGrid
+          vehicles={vehicles}
+          loading={loading}
+          isAuthenticated={isAuthenticated}
+          isAdmin={isAdmin}
+          onResetFilters={handleResetFilters}
+          onPurchase={(v) => {
+            setSelectedVehicleForPurchase(v);
+            setPurchaseQuantity(1);
+          }}
+          onEdit={(v) => handleOpenAdminModal(v)}
+          onRestock={(v) => {
+            setRestockVehicle(v);
+            setRestockQuantity(1);
+          }}
+          onDelete={handleDeleteVehicle}
+        />
+      </main>
 
       {/* Purchase Modal */}
       <PurchaseModal

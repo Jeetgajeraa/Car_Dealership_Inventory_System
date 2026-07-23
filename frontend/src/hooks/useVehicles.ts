@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, type FormEvent } from "react";
+import { useState, useEffect, useCallback, useMemo, type FormEvent } from "react";
 import { vehiclesApi } from "../api/vehicles";
 import type { Vehicle, VehicleFilterParams } from "../api/types";
 import type { VehicleFormState } from "../components/vehicles/AdminVehicleModal";
@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 export const useVehicles = () => {
   const { user, isAdmin } = useAuth();
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [rawVehicles, setRawVehicles] = useState<Vehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -19,6 +19,7 @@ export const useVehicles = () => {
     minPrice: undefined,
     maxPrice: undefined,
   });
+  const [sortBy, setSortBy] = useState<string>("newest");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   // Purchase modal state
@@ -54,7 +55,7 @@ export const useVehicles = () => {
       const filtered = isAdmin
         ? data
         : data.filter((v) => v.createdById !== user?.id);
-      setVehicles(filtered);
+      setRawVehicles(filtered);
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to load vehicles.");
     } finally {
@@ -65,6 +66,24 @@ export const useVehicles = () => {
   useEffect(() => {
     fetchVehicles();
   }, [fetchVehicles]);
+
+  // Apply client-side sorting
+  const vehicles = useMemo(() => {
+    const list = [...rawVehicles];
+    switch (sortBy) {
+      case "price-asc":
+        return list.sort((a, b) => Number(a.price) - Number(b.price));
+      case "price-desc":
+        return list.sort((a, b) => Number(b.price) - Number(a.price));
+      case "make-asc":
+        return list.sort((a, b) => a.make.localeCompare(b.make));
+      case "oldest":
+        return list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      case "newest":
+      default:
+        return list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    }
+  }, [rawVehicles, sortBy]);
 
   const handleFilterSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -81,6 +100,7 @@ export const useVehicles = () => {
       maxPrice: undefined,
     };
     setFilters(emptyFilters);
+    setSortBy("newest");
     fetchVehicles(emptyFilters);
     setMobileFilterOpen(false);
   };
@@ -199,6 +219,8 @@ export const useVehicles = () => {
     setSuccessMsg,
     filters,
     setFilters,
+    sortBy,
+    setSortBy,
     mobileFilterOpen,
     setMobileFilterOpen,
     selectedVehicleForPurchase,
