@@ -9,6 +9,7 @@ import {
   deleteVehicle,
   purchaseVehicle,
   restockVehicle,
+  getVehicleStats,
 } from "../controllers/vehicle.controller";
 import { authenticate, authorizeRole } from "../middleware/auth.middleware";
 
@@ -17,6 +18,7 @@ const router = Router();
 router.post("/", authenticate, createVehicle);
 router.get("/search", authenticate, searchVehicles);
 router.get("/my", authenticate, getMyVehicles);
+router.get("/stats", authenticate, authorizeRole("ADMIN"), getVehicleStats);
 router.get("/", authenticate, getVehicles);
 router.get("/:id", authenticate, getVehicleById);
 router.put("/:id", authenticate, updateVehicle);

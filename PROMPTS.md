@@ -311,4 +311,13 @@ Implemented color palette tokens, AuthContext state, Axios interceptor, floating
 - Created `RegisterPage` (`POST /api/v1/auth/register`)
 - Verified 100% clean production build (`npm run build`)
 
+## Prompt 26
+
+### User Prompt
+>for admin states design test cases which include inventory states
+
+### AI Assistance(Claude sonet 4.6)
+- test cases made for state  
+
+
 
