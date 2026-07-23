@@ -76,20 +76,21 @@ describe("POST /api/v1/vehicles", () => {
     expect(res.body.success).toBe(false);
   });
 
-  it("should reject creation by non-admin user", async () => {
+  it("should allow creation by regular authenticated user", async () => {
     const res = await request(app)
       .post("/api/v1/vehicles")
       .set("Authorization", `Bearer ${userToken}`)
       .send({
-        make: "Toyota",
-        model: "Camry",
+        make: "Honda",
+        model: "Civic",
         categoryId: "sedan",
-        price: 25000,
-        quantity: 5,
+        price: 22000,
+        quantity: 3,
       });
 
-    expect(res.status).toBe(403);
-    expect(res.body.success).toBe(false);
+    expect(res.status).toBe(201);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.make).toBe("Honda");
   });
 
   it("should create a vehicle successfully with valid payload (Admin)", async () => {

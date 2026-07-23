@@ -7,8 +7,10 @@ describe("PUT /api/v1/vehicles/:id", () => {
   const secret = process.env.JWT_SECRET || "default_secret";
   let adminToken: string;
   let userToken: string;
+  let otherUserToken: string;
   let adminUserId: string;
   let regularUserId: string;
+  let otherUserId: string;
   let testVehicleId: string;
 
   beforeAll(async () => {
@@ -16,7 +18,13 @@ describe("PUT /api/v1/vehicles/:id", () => {
     await prisma.vehicle.deleteMany({});
     await prisma.user.deleteMany({
       where: {
-        email: { in: ["updateadmin@test.com", "updateuser@test.com"] },
+        email: {
+          in: [
+            "updateadmin@test.com",
+            "updateuser@test.com",
+            "otheruser@test.com",
+          ],
+        },
       },
     });
 
@@ -47,6 +55,20 @@ describe("PUT /api/v1/vehicles/:id", () => {
       { id: regularUser.id, email: regularUser.email, role: regularUser.role },
       secret
     );
+
+    const otherUser = await prisma.user.create({
+      data: {
+        name: "Other User",
+        email: "otheruser@test.com",
+        passwordHash: "hashedpassword",
+        role: "USER",
+      },
+    });
+    otherUserId = otherUser.id;
+    otherUserToken = jwt.sign(
+      { id: otherUser.id, email: otherUser.email, role: otherUser.role },
+      secret
+    );
   });
 
   beforeEach(async () => {
@@ -61,6 +83,7 @@ describe("PUT /api/v1/vehicles/:id", () => {
         price: 20000,
         quantity: 10,
         description: "Initial description",
+        createdById: regularUserId,
       },
     });
     testVehicleId = vehicle.id;
@@ -70,7 +93,7 @@ describe("PUT /api/v1/vehicles/:id", () => {
     await prisma.purchase.deleteMany({});
     await prisma.vehicle.deleteMany({});
     await prisma.user.deleteMany({
-      where: { id: { in: [adminUserId, regularUserId] } },
+      where: { id: { in: [adminUserId, regularUserId, otherUserId] } },
     });
     await prisma.$disconnect();
   });
@@ -84,14 +107,26 @@ describe("PUT /api/v1/vehicles/:id", () => {
     expect(res.body.success).toBe(false);
   });
 
-  it("should reject update by non-admin user", async () => {
+  it("should allow vehicle update by creator user", async () => {
     const res = await request(app)
       .put(`/api/v1/vehicles/${testVehicleId}`)
       .set("Authorization", `Bearer ${userToken}`)
       .send({ price: 21000 });
 
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(Number(res.body.data.price)).toBe(21000);
+  });
+
+  it("should reject vehicle update by regular user who did not create the vehicle", async () => {
+    const res = await request(app)
+      .put(`/api/v1/vehicles/${testVehicleId}`)
+      .set("Authorization", `Bearer ${otherUserToken}`)
+      .send({ price: 22000 });
+
     expect(res.status).toBe(403);
     expect(res.body.success).toBe(false);
+    expect(res.body.message).toContain("only edit vehicles created by you");
   });
 
   it("should return 404 when updating non-existent vehicle", async () => {
@@ -104,21 +139,21 @@ describe("PUT /api/v1/vehicles/:id", () => {
     expect(res.body.success).toBe(false);
   });
 
-  it("should update vehicle details successfully with valid payload (Admin)", async () => {
+  it("should allow admin to update vehicle details even if created by another user", async () => {
     const res = await request(app)
       .put(`/api/v1/vehicles/${testVehicleId}`)
       .set("Authorization", `Bearer ${adminToken}`)
       .send({
         price: 21500,
         quantity: 8,
-        description: "Updated description",
+        description: "Updated description by Admin",
       });
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(Number(res.body.data.price)).toBe(21500);
     expect(res.body.data.quantity).toBe(8);
-    expect(res.body.data.description).toBe("Updated description");
+    expect(res.body.data.description).toBe("Updated description by Admin");
   });
 
   it("should reject update with invalid payload (negative price)", async () => {

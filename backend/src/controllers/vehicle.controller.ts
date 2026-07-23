@@ -17,8 +17,9 @@ export const createVehicle = async (
 ) => {
   try {
     const data = createVehicleSchema.parse(req.body);
+    const userId = req.user?.id;
 
-    const vehicle = await vehicleService.createVehicle(data);
+    const vehicle = await vehicleService.createVehicle(data, userId);
 
     return res.status(201).json({
       success: true,
@@ -41,6 +42,29 @@ export const getVehicles = async (
     return res.status(200).json({
       success: true,
       message: "Vehicles retrieved successfully",
+      data: vehicles,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getMyVehicles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    const vehicles = await vehicleService.getMyVehicles(userId);
+
+    return res.status(200).json({
+      success: true,
+      message: "My vehicles retrieved successfully",
       data: vehicles,
     });
   } catch (error) {
@@ -97,7 +121,7 @@ export const updateVehicle = async (
     const id = req.params.id as string;
     const data = updateVehicleSchema.parse(req.body);
 
-    const vehicle = await vehicleService.updateVehicle(id, data);
+    const vehicle = await vehicleService.updateVehicle(id, data, req.user);
 
     return res.status(200).json({
       success: true,

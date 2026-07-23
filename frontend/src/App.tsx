@@ -1,43 +1,88 @@
-import { Car, ShieldCheck, Zap, Sparkles } from 'lucide-react';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { Navbar } from "./components/Navbar";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { SearchPage } from "./pages/SearchPage";
+import { PurchasesPage } from "./pages/PurchasesPage";
+import { MyVehiclesPage } from "./pages/MyVehiclesPage";
+import { Search, ShieldCheck, Zap, Layers, ArrowUpRight } from "lucide-react";
 
-function App() {
+function HomePage() {
+  const { isAuthenticated } = useAuth();
+
+  // If user is logged in, immediately show live vehicle inventory catalog
+  if (isAuthenticated) {
+    return <SearchPage />;
+  }
+
+  // If user is not logged in, show welcome landing page
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6">
-      <div className="max-w-3xl text-center space-y-6 bg-slate-900/80 backdrop-blur-md border border-slate-800 p-10 rounded-2xl shadow-2xl">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium">
-          <Sparkles className="w-4 h-4" />
-          <span>Vite + React + Tailwind CSS Stack Initialized</span>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-12 sm:space-y-16">
+      {/* Hero Banner for Visitors */}
+      <div className="text-center space-y-6 pt-4 sm:pt-8 max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border shadow-xs text-xs sm:text-sm font-semibold text-dark">
+          <Zap className="w-4 h-4 text-emerald-600 fill-emerald-600/20" />
+          <span>Real-time Dealership Management</span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">
-          Car Dealership Inventory System
+        <h1 className="text-3xl sm:text-6xl font-extrabold text-dark tracking-tight leading-tight">
+          Your Complete Car Inventory,<br />
+          <span className="text-emerald-700"> Simplified & Streamlined.</span>
         </h1>
 
-        <p className="text-slate-400 text-lg max-w-xl mx-auto">
-          Frontend web client setup complete. Ready to connect to backend REST APIs for real-time inventory management, vehicle search, and purchases.
+        <p className="text-sm sm:text-lg text-muted max-w-2xl mx-auto font-normal leading-relaxed">
+          Explore our live car inventory, filter by make, model, price, or specifications, and purchase vehicles seamlessly with instant order processing.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-left">
-          <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
-            <Car className="w-6 h-6 text-indigo-400 mb-2" />
-            <h3 className="font-semibold text-slate-200">Vehicle Inventory</h3>
-            <p className="text-sm text-slate-400 mt-1">Browse, search, and filter available cars with real-time stock levels.</p>
-          </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4">
+          <Link
+            to="/register"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-dark text-white hover:bg-dark-hover px-7 py-4 rounded-full font-semibold shadow-md transition-all hover:scale-105"
+          >
+            <span>Get Started & Create Account</span>
+            <div className="w-6 h-6 rounded-full bg-lime text-dark flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+            </div>
+          </Link>
 
-          <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
-            <ShieldCheck className="w-6 h-6 text-emerald-400 mb-2" />
-            <h3 className="font-semibold text-slate-200">JWT Security & RBAC</h3>
-            <p className="text-sm text-slate-400 mt-1">Role-based access for Customers and Dealership Admins.</p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50">
-            <Zap className="w-6 h-6 text-amber-400 mb-2" />
-            <h3 className="font-semibold text-slate-200">Instant Purchase</h3>
-            <p className="text-sm text-slate-400 mt-1">Atomic stock decrement and customer purchase history tracking.</p>
-          </div>
+          <Link
+            to="/login"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-dark hover:bg-mint-soft px-7 py-4 rounded-full font-semibold border border-border shadow-xs transition-all"
+          >
+            <span>Sign In to Account</span>
+          </Link>
         </div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="min-h-screen bg-mint text-forest flex flex-col justify-between">
+          <div>
+            <Navbar />
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/purchases" element={<PurchasesPage />} />
+                <Route path="/my-vehicles" element={<MyVehiclesPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </main>
+          </div>
+
+          <footer className="py-8 px-4 text-center text-xs text-muted border-t border-border/40 mt-12">
+            © {new Date().getFullYear()} auto.dealership Inventory System. All rights reserved.
+          </footer>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

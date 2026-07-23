@@ -1,9 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --color-mint: #eafbf3;
+  --color-mint-soft: #f2fdf7;
+  --color-dark: #044438;
+  --color-dark-hover: #07382f;
+  --color-forest: #062b24;
+  --color-lime: #c2f254;
+  --color-lime-hover: #b0e63f;
+  --color-muted: #567e74;
+  --color-border: #d1fae5;
+}
+
 @layer base {
   body {
-    background-color: #0f172a;
-    color: #f8fafc;
+    background-color: var(--color-mint);
+    color: var(--color-forest);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     min-height: 100vh;
     margin: 0;

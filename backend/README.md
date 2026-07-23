@@ -123,8 +123,8 @@ Registers a new user account.
 - **Request Body**:
   ```json
   {
-    "name": "Jane Doe",
-    "email": "jane@example.com",
+    "name": "ramesh Gujral",
+    "email": "ramesh@example.com",
     "password": "Password123!",
     "role": "USER"
   }
@@ -137,8 +137,8 @@ Registers a new user account.
     "message": "User registered successfully",
     "data": {
       "id": "cmr...",
-      "name": "Jane Doe",
-      "email": "jane@example.com",
+      "name": "ramesh Gujral",
+      "email": "ramesh@example.com",
       "role": "USER",
       "createdAt": "2026-07-22T09:00:00.000Z"
     }
@@ -152,7 +152,7 @@ Authenticates user credentials and returns a JWT token.
 - **Request Body**:
   ```json
   {
-    "email": "jane@example.com",
+    "email": "Ramesh@example.com",
     "password": "Password123!"
   }
   ```
@@ -164,8 +164,8 @@ Authenticates user credentials and returns a JWT token.
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6...",
     "user": {
       "id": "cmr...",
-      "name": "Jane Doe",
-      "email": "jane@example.com",
+      "name": "Ramesh Gujral",
+      "email": "Ramesh@example.com",
       "role": "USER"
     }
   }

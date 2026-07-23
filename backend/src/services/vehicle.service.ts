@@ -9,7 +9,7 @@ import { ApiError } from "../utils/ApiError";
 export class VehicleService {
   private vehicleRepository = new VehicleRepository();
 
-  async createVehicle(input: CreateVehicleInput) {
+  async createVehicle(input: CreateVehicleInput, userId?: string) {
     const existing = await this.vehicleRepository.findByMakeModelCategory(
       input.make,
       input.model,
@@ -23,11 +23,18 @@ export class VehicleService {
       );
     }
 
-    return this.vehicleRepository.create(input);
+    return this.vehicleRepository.create({
+      ...input,
+      createdById: userId,
+    });
   }
 
   async getVehicles() {
     return this.vehicleRepository.findAll();
+  }
+
+  async getMyVehicles(userId: string) {
+    return this.vehicleRepository.findByCreatedById(userId);
   }
 
   async getVehicleById(id: string) {
@@ -44,14 +51,29 @@ export class VehicleService {
     return this.vehicleRepository.search(query);
   }
 
-  async updateVehicle(id: string, input: UpdateVehicleInput) {
+  async updateVehicle(
+    id: string,
+    input: UpdateVehicleInput,
+    user?: { id: string; role: "USER" | "ADMIN" }
+  ) {
     const existing = await this.vehicleRepository.findById(id);
 
     if (!existing) {
       throw new ApiError("Vehicle not found", 404);
     }
 
-    return this.vehicleRepository.update(id, input);
+    if (user && user.role !== "ADMIN" && existing.createdById !== user.id) {
+      throw new ApiError(
+        "Forbidden: You can only edit vehicles created by you",
+        403
+      );
+    }
+
+    // Only admins can change quantity — strip it for regular users
+    const { quantity: _qty, ...nonAdminInput } = input;
+    const updateData = user?.role === "ADMIN" ? input : nonAdminInput;
+
+    return this.vehicleRepository.update(id, updateData);
   }
 
   async deleteVehicle(id: string) {

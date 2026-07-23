@@ -295,3 +295,20 @@ Scaffolded React TypeScript project using Vite, installed Tailwind CSS v4, Lucid
 - Installed `@tailwindcss/vite`, `tailwindcss`, `lucide-react`, `react-router-dom`, `axios`
 - Configured `@tailwindcss/vite` plugin and `/api` proxy targeting backend server on port 5000 in `vite.config.ts`
 - Built welcome interface and verified clean production build (`npm run build`)
+
+## Prompt 25
+
+### User Prompt
+> feat(frontend): implement color design system, AuthContext, Sign In, and Sign Up pages
+
+Implemented color palette tokens, AuthContext state, Axios interceptor, floating pill Navbar, and Sign In & Sign Up pages.
+
+### AI Assistance(Claude sonet 4.6)
+- Configured mint background, forest teal, and vibrant lime color tokens in `index.css`
+- Built `AuthContext` with JWT session persistence in `localStorage`
+- Created `Navbar` floating pill matching signature design
+- Created `LoginPage` (`POST /api/v1/auth/login`) with email/password validation
+- Created `RegisterPage` (`POST /api/v1/auth/register`)
+- Verified 100% clean production build (`npm run build`)
+
+

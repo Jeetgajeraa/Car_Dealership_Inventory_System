@@ -77,6 +77,7 @@ export class VehicleRepository {
     price: number;
     quantity: number;
     description?: string;
+    createdById?: string;
   }) {
     return prisma.vehicle.create({
       data: {
@@ -86,6 +87,7 @@ export class VehicleRepository {
         price: data.price,
         quantity: data.quantity,
         description: data.description,
+        createdById: data.createdById,
       },
     });
   }
@@ -104,6 +106,13 @@ export class VehicleRepository {
     return prisma.vehicle.update({
       where: { id },
       data,
+    });
+  }
+
+  async findByCreatedById(userId: string) {
+    return prisma.vehicle.findMany({
+      where: { createdById: userId },
+      orderBy: { createdAt: "desc" },
     });
   }
 
